@@ -14,14 +14,16 @@ static inline double calc_kth_element(int k){
 }
 
 static inline double aproximate_pi(double t, int* iter_num){
-    double aprox = 0, last_aprox = 0;
+    double aprox = 0, last_aprox = t+1;
     int k = 0;
+    
+    printf("%.15e %.15e \n", aprox-last_aprox , t);
 
-    while(!less_or_equal(aprox, last_aprox, t)){
+    while(!is_equal(aprox, last_aprox, t)){
         last_aprox = aprox; 
 
         aprox += calc_kth_element(k); 
-
+        printf("%.10e\n", aprox);
         k++;
     }
     

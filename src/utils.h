@@ -5,10 +5,10 @@
 
 // gabs - generic absolute value
 #define gabs(value) _Generic((value), \
-    int : abs,                       \
-    double: fabs,                    \
-    float: fabsf,                    \
-    long int: labs                   \
+    int : abs(value),                       \
+    double: fabs(value),                    \
+    float: fabsf(value),                    \
+    long int: labs (value)                  \
     )
 
 #define is_equal(a, b, error) (gabs(a - b) <= error)
