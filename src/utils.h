@@ -2,8 +2,6 @@
 #define UTILS_H
 
 #include "common.h"
-#include <math.h>
-
 
 // gabs - generic absolute value
 #define gabs(value) _Generic((value), \
@@ -12,5 +10,8 @@
     float: fabsf,                    \
     long int: labs                   \
     )
+
+#define is_equal(a, b, error) (gabs(a - b) <= error)
+#define less_or_equal(a,b, error) ((a-b) <= error)
 
 #endif
