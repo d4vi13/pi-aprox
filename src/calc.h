@@ -8,6 +8,7 @@
 
 struct sum_components{
     double fact;
+    double fact_2k;
     double pow_of_two;
 };
 

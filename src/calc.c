@@ -3,6 +3,9 @@
 static inline void update_components(psum_components comp, int k){
     comp->pow_of_two *= 2;
     comp->fact *= k;
+    comp->fact_2k *= 2*k;
+    comp->fact_2k *= 2*k + 1;
+
 }
 
 static inline double fact(int k){
@@ -15,12 +18,12 @@ static inline double fact(int k){
 }
 
 static inline double calc_kth_element(int k, psum_components comp){
-    return 2*comp->pow_of_two*comp->fact*comp->fact/fact(2*k+1);
+    return 2*comp->pow_of_two*comp->fact*comp->fact/comp->fact_2k;
 }
 
 static inline double aproximate_pi(double t, int* iter_num, double* plast_aprox, int* flops){
     long double aprox = 0, last_aprox = t+1;
-    sum_components comp = {1 , 1}; 
+    sum_components comp = {1 , 1 , 1}; 
     int k = 0;
 
     while(is_not_close_enough(aprox, last_aprox, t) ){
@@ -28,7 +31,7 @@ static inline double aproximate_pi(double t, int* iter_num, double* plast_aprox,
         
         aprox += calc_kth_element(k, &comp); 
         
-        *flops += 2*k + 6;
+        *flops += 11;
         
         k++;
         update_components(&comp, k);
@@ -40,6 +43,7 @@ static inline double aproximate_pi(double t, int* iter_num, double* plast_aprox,
 }
 
 void calculate_result(presult res){
+    union value_visual pi, last;
     fesetround(res->rounding_method);
 
     res->pi = aproximate_pi(
@@ -51,8 +55,10 @@ void calculate_result(presult res){
 
     res->aprox_abs_error = gabs(res->pi-res->last_aprox);
     res->abs_error = gabs(M_PI_L-res->pi);
-
-    res->ULP = (long int)res->pi - (long int) res->last_aprox;
+    
+    pi.db = res->pi;
+    last.db = res->last_aprox;
+    res->ULP = pi.lint - last.lint;
     
 }
 
