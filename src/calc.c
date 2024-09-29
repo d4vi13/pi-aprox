@@ -32,8 +32,8 @@ static inline double aproximate_pi(double t, int* iter_num, double* plast_aprox,
         aprox += calc_kth_element(k, &comp); 
         
         *flops += 11;
-        
-        k++;
+        printf("t %.15e\n", gabs(aprox - last_aprox));
+        k++; 
         update_components(&comp, k);
     }
     

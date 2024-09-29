@@ -17,8 +17,8 @@ void show_result(presult up, presult down){
     printf("%d\n", up->iteration_count);
     printf("%.15e %lX\n", err.db, err.lint);
     printf("%.15e %lX\n", abs_err.db, abs_err.lint);
-    printf("%.15e %lX\n", piup.db, piup.lint);
     printf("%.15e %lX\n", pidown.db, pidown.lint);
+    printf("%.15e %lX\n", piup.db, piup.lint);
     printf("%d\n", up->ULP);
     printf("%d\n", up->flops);
     
