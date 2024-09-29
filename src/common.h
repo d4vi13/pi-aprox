@@ -15,15 +15,21 @@ struct _result{
     double aprox_abs_error;
     int ULP;
     int iteration_count;
-    
+    int flops;
+
     double tolerance;
     int rounding_method;
 };
 
 typedef struct _result result, *presult;
 
+union value_visual {
+    double db;
+    long int lint;
+};
+
 extern void init_result(presult r, int rounding_method, double tolerance);
 
-extern void show_result(presult r);
+extern void show_result(presult up, presult down);
 
 #endif      

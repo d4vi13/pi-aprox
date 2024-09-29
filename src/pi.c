@@ -16,7 +16,7 @@ int main(){
     calculate_result(&aprox_up);
 
 
-    //show_result(&aprox_down,&aprox_up);
+    show_result(&aprox_up,&aprox_down);
 
     return 0;
 }
