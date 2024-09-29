@@ -1,7 +1,12 @@
 #include "calc.h"
 
-static inline long double fact(int k){
-    long double factorial = 1;
+static inline void update_components(psum_components comp, int k){
+    comp->pow_of_two *= 2;
+    comp->fact *= k;
+}
+
+static inline double fact(int k){
+    double factorial = 1;
     
     for (int i = 2; i <= k; i++)
         factorial *= i;
@@ -9,20 +14,22 @@ static inline long double fact(int k){
     return factorial;
 }
 
-static inline long double calc_kth_element(int k){
-    return 2*pow(2,k)*pow(fact(k),2)/fact(2*k+1);
+static inline double calc_kth_element(int k, psum_components comp){
+    return 2*comp->pow_of_two*comp->fact*comp->fact/fact(2*k+1);
 }
 
-static inline long double aproximate_pi(double t, int* iter_num, long double* plast_aprox){
+static inline double aproximate_pi(double t, int* iter_num, double* plast_aprox){
     long double aprox = 0, last_aprox = t+1;
+    sum_components comp = {1 , 1}; 
     int k = 0;
 
     while(is_not_close_enough(aprox, last_aprox, t) ){
         last_aprox = aprox; 
         
-        aprox += calc_kth_element(k); 
+        aprox += calc_kth_element(k, &comp); 
         
         k++;
+        update_components(&comp, k);
     }
     
     *iter_num = k;
@@ -42,6 +49,8 @@ void calculate_result(presult res){
     res->aprox_abs_error = gabs(res->pi-res->last_aprox);
     res->abs_error = gabs(M_PI_L-res->pi);
 
-    res->ULP = (long long int)res->pi - (long long int) res->last_aprox;
+    res->ULP = (long int)res->pi - (long int) res->last_aprox;
+    
+    printf("aprox: %f %lu %lu\n", res->pi, sizeof(res->pi), sizeof(long int));
 }
 

@@ -6,6 +6,13 @@
 
 #define M_PI_L 3.141592653589793238462643383279502984L
 
+struct sum_components{
+    double fact;
+    double pow_of_two;
+};
+
+typedef struct sum_components sum_components, *psum_components;
+
 extern void calculate_result(presult res);
 
 #endif

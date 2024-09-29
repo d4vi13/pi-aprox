@@ -6,3 +6,8 @@ void init_result(presult r, int rounding_method, double tolerance){
     r->rounding_method = rounding_method;
     r->tolerance = tolerance;
 }
+
+void show_result(presult r){
+
+    
+}

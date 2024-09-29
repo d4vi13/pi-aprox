@@ -9,10 +9,10 @@
 #include <string.h>
 
 struct _result{
-    long double pi;
-    long double last_aprox;
-    long double abs_error;
-    long double aprox_abs_error;
+    double pi;
+    double last_aprox;
+    double abs_error;
+    double aprox_abs_error;
     int ULP;
     int iteration_count;
     
@@ -22,6 +22,8 @@ struct _result{
 
 typedef struct _result result, *presult;
 
-void init_result(presult r, int rounding_method, double tolerance);
+extern void init_result(presult r, int rounding_method, double tolerance);
+
+extern void show_result(presult r);
 
 #endif      
