@@ -9,7 +9,7 @@
 struct sum_components{
     double fact;
     double fact_2k;
-    double pow_of_two;
+    long int pow_of_two;
 };
 
 typedef struct sum_components sum_components, *psum_components;

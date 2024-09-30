@@ -19,7 +19,7 @@ void show_result(presult up, presult down){
     printf("%.15e %lX\n", abs_err.db, abs_err.lint);
     printf("%.15e %lX\n", pidown.db, pidown.lint);
     printf("%.15e %lX\n", piup.db, piup.lint);
-    printf("%d\n", up->ULP);
+    printf("%ld\n", piup.lint - pidown.lint);
     printf("%d\n", up->flops);
     
 }

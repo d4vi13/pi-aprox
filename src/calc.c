@@ -3,18 +3,8 @@
 static inline void update_components(psum_components comp, int k){
     comp->pow_of_two *= 2;
     comp->fact *= k;
-    comp->fact_2k *= 2*k;
-    comp->fact_2k *= 2*k + 1;
+    comp->fact_2k *= 2*k * (2*k + 1);
 
-}
-
-static inline double fact(int k){
-    double factorial = 1;
-    
-    for (int i = 2; i <= k; i++)
-        factorial *= i;
-
-    return factorial;
 }
 
 static inline double calc_kth_element(int k, psum_components comp){
@@ -22,7 +12,7 @@ static inline double calc_kth_element(int k, psum_components comp){
 }
 
 static inline double aproximate_pi(double t, int* iter_num, double* plast_aprox, int* flops){
-    long double aprox = 0, last_aprox = t+1;
+    double aprox = 0, last_aprox = t+1;
     sum_components comp = {1 , 1 , 1}; 
     int k = 0;
 
@@ -31,10 +21,11 @@ static inline double aproximate_pi(double t, int* iter_num, double* plast_aprox,
         
         aprox += calc_kth_element(k, &comp); 
         
-        *flops += 11;
-        printf("t %.15e\n", gabs(aprox - last_aprox));
-        k++; 
-        update_components(&comp, k);
+        *flops += 6;
+        
+		k++; 
+        
+		update_components(&comp, k);
     }
     
     *iter_num = k;
@@ -56,9 +47,6 @@ void calculate_result(presult res){
     res->aprox_abs_error = gabs(res->pi-res->last_aprox);
     res->abs_error = gabs(M_PI_L-res->pi);
     
-    pi.db = res->pi;
-    last.db = res->last_aprox;
-    res->ULP = pi.lint - last.lint;
     
 }
 
